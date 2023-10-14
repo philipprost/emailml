@@ -1,0 +1,32 @@
+{
+  "name": "emailml",
+  "version": "0.0.1",
+  "description": "emailml is a new markup language making it easier than never before to write widely supported email templates",
+  "main": "index.js",
+  "scripts": {
+    "build:parser": "pegjs arithmetics.pegjs",
+    "test": "jest"
+  },
+  "keywords": [
+    "email",
+    "email",
+    "templates",
+    "email",
+    "markup"
+  ],
+  "author": "Philipp Rost",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^20.8.6",
+    "commander": "^11.1.0",
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "pegjs": "^0.10.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.5",
+    "ts-jest": "^29.1.1"
+  }
+}

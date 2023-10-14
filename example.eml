@@ -1,0 +1,21 @@
+<emailml>
+  <container align-v="center" align-h="center" padding="20px" background="blue">
+    <text size="32px" color="#fff">Gaiyo</text>
+  </container>
+  <container align-v="center" align-h="center" padding="20px" background="blue">
+    <grid align="vertical">
+      <column>
+        <text color="#fff" weight="bold">Block One</text>
+      </column>
+      <column>
+        <text color="#fff" weight="bold">Block Two</text>
+      </column>
+      <column>
+        <text color="#fff" weight="bold">Block Three</text>
+      </column>
+    </grid>
+  </container>
+  <container align-v="center" align-h="center" padding="20px" background="green">
+    <text color="#fff">Hello World</text>
+  </container>
+</emailml>
