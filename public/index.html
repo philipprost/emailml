@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmailML Transformer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="pane emailml-pane">
+      <textarea id="emailml-input" placeholder="Enter EmailML..."> </textarea>
+    </div>
+    <div class="pane html-pane">
+      <textarea id="html-output" readonly></textarea>
+    </div>
+    <button onclick="transform()">Transform</button>
+    <div class="render-pane">
+      <iframe id="html-render"></iframe>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -29,6 +29,11 @@ cd EMAILML
 Install the required dependencies:
 ```
 
+## Live Editor
+
+When running `npm run start:server` and open `http://localhost:3002/` you can see EmailML in action.
+The server imports the modules directly, so changes will be reflected immediadly.
+
 ## Usage
 
 ### Via ts-node (Recommended)
