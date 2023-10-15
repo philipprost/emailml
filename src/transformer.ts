@@ -1,6 +1,5 @@
-import { ASTNode, TagNode, TextNode } from "./parser";
-import { Attribute } from "./tokenizer";
 import { minifyHTML } from "../src/util/minify";
+import { Attribute, ASTNode, TagNode, TextNode } from "./types";
 
 export default class ASTToHTMLTransformer {
   transform(ast: ASTNode[]): string {

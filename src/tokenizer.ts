@@ -1,15 +1,4 @@
-export type Attribute = {
-  name: string;
-  value: string;
-};
-
-export type TokenType = "OPEN_TAG" | "CLOSE_TAG" | "TEXT_CONTENT" | "ATTRIBUTE";
-
-export interface Token {
-  type: TokenType;
-  value?: string;
-  attributes?: Attribute[];
-}
+import { Attribute, Token } from "./types";
 
 export default class Tokenizer {
   private input: string;

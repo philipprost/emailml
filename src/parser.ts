@@ -1,18 +1,4 @@
-import { Attribute, Token } from "./tokenizer";
-
-export type ASTNode = TagNode | TextNode;
-
-export interface TagNode {
-  type: "TAG";
-  tagName: string;
-  attributes: Attribute[];
-  children: ASTNode[];
-}
-
-export interface TextNode {
-  type: "TEXT";
-  content: string;
-}
+import { ASTNode, TagNode, TextNode, Token } from "./types";
 
 export default class Parser {
   private tokens: Token[];

@@ -1,5 +1,6 @@
-import Parser, { TagNode } from "../src/parser";
+import Parser from "../src/parser";
 import Tokenizer from "../src/tokenizer";
+import { TagNode } from "../src/types";
 
 describe("valid syntax parser tests", () => {
   const markup = `<emailml><container align-v="center" align-h="center" padding="20px" background="#000"><text color="white">Hello World</text></container></emailml>`;

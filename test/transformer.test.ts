@@ -39,7 +39,7 @@ describe("transformer valid test", () => {
     const html = transformer.transform(ast);
 
     expect(html).toBe(
-      '<p style="color: #000; font-weight: normal; margin: 0px;"></p>'
+      '<p style="color: #000; font-weight: normal; margin: 0px; font-size: 16px"></p>'
     );
   });
 
@@ -53,7 +53,7 @@ describe("transformer valid test", () => {
     const html = transformer.transform(ast);
 
     expect(html).toBe(
-      '<p style="color: #111; font-weight: bold; margin: 25px;"></p>'
+      '<p style="color: #111; font-weight: bold; margin: 25px; font-size: 16px"></p>'
     );
   });
 

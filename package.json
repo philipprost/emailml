@@ -2,12 +2,14 @@
   "name": "emailml",
   "version": "0.0.1",
   "description": "emailml is a new markup language making it easier than never before to write widely supported email templates",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "src/types.ts",
   "scripts": {
     "start:server": "ts-node server/index.ts",
     "build": "tsc",
     "build:parser": "pegjs arithmetics.pegjs",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "keywords": [
     "email",
@@ -35,6 +37,7 @@
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.5",
     "lite-server": "^2.6.1",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "husky": "^8.0.0"
   }
 }
