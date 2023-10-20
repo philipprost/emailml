@@ -38,9 +38,7 @@ describe("transformer valid test", () => {
     const ast = parser.parse();
     const html = transformer.transform(ast);
 
-    expect(html).toBe(
-      '<p style="color: #000; font-weight: normal; margin: 0px; font-size: 16px"></p>'
-    );
+    expect(html).toBe('<p style=""></p>');
   });
 
   test("should transform a text attributes correctly", () => {
@@ -53,7 +51,7 @@ describe("transformer valid test", () => {
     const html = transformer.transform(ast);
 
     expect(html).toBe(
-      '<p style="color: #111; font-weight: bold; margin: 25px; font-size: 16px"></p>'
+      '<p style="color: #111; font-weight: bold; margin: 25px;"></p>'
     );
   });
 
@@ -83,5 +81,17 @@ describe("transformer valid test", () => {
     expect(html).toBe(
       '<table width="100%" cellspacing="0" cellpadding="0" style="margin: 0; padding: 0; border-collapse: collapse;"><tr><td valign="top" align="left" width="50.00%">Test 1</td><td valign="top" align="left" width="50.00%">Test 2</td></tr></table>'
     );
+  });
+
+  test("should transform a image element", () => {
+    const markup = `<image></image>`;
+    const transformer = new ASTToHTMLTransformer();
+    const tokenizer = new Tokenizer(markup);
+    const tokens = tokenizer.tokenize();
+    const parser = new Parser(tokens);
+    const ast = parser.parse();
+    const html = transformer.transform(ast);
+
+    expect(html).toBe('<img src="" alt="" style=""></img>');
   });
 });

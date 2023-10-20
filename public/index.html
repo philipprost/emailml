@@ -5,18 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EmailML Transformer</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/monokai_sublime.css"
+    />
   </head>
   <body>
     <div class="pane emailml-pane">
-      <textarea id="emailml-input" placeholder="Enter EmailML..."> </textarea>
+      <textarea id="emailml-input" class="html" placeholder="Enter EmailML...">
+      </textarea>
     </div>
     <div class="pane html-pane">
-      <textarea id="html-output" readonly></textarea>
+      <pre readonly>
+        <code id="html-output" class="html"></code>
+      </pre>
     </div>
     <button onclick="transform()">Transform</button>
     <div class="render-pane">
       <iframe id="html-render"></iframe>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.0/beautify-html.min.js"></script>
+
     <script src="script.js"></script>
   </body>
 </html>

@@ -36,8 +36,8 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.5",
+    "husky": "^8.0.0",
     "lite-server": "^2.6.1",
-    "ts-jest": "^29.1.1",
-    "husky": "^8.0.0"
+    "ts-jest": "^29.1.1"
   }
 }

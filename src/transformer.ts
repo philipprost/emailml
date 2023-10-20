@@ -1,5 +1,6 @@
 import { minifyHTML } from "../src/util/minify";
 import { Attribute, ASTNode, TagNode, TextNode } from "./types";
+import { CssStyleInliner } from "./util/attributes";
 
 export default class ASTToHTMLTransformer {
   transform(ast: ASTNode[]): string {
@@ -10,18 +11,18 @@ export default class ASTToHTMLTransformer {
     return html;
   }
 
-  private transformNode(node: ASTNode, _width?: string): string {
+  private transformNode(node: ASTNode): string {
     switch (node.type) {
       case "TAG":
-        return this.transformTagNode(node, _width);
+        return this.transformTagNode(node);
       case "TEXT":
-        return this.transformTextNode(node, _width);
+        return this.transformTextNode(node);
       default:
         throw new Error(`Unexpected node type: ${node}`);
     }
   }
 
-  private transformTagNode(node: TagNode, _width?: string): string {
+  private transformTagNode(node: TagNode): string {
     switch (node.tagName) {
       case "emailml":
         return this.transformBodyNode(node);
@@ -32,13 +33,15 @@ export default class ASTToHTMLTransformer {
       case "grid":
         return this.transformGridElementNode(node);
       case "column":
-        return this.transformColumnElementNode(node, _width);
+        return this.transformColumnElementNode(node);
+      case "image":
+        return this.transformImageElementNode(node);
       default:
         throw new Error(`Unexpected tag name: ${node.tagName}`);
     }
   }
 
-  private transformGridElementNode(node: TagNode, _width?: string): string {
+  private transformGridElementNode(node: TagNode): string {
     const { align = "horizontal" } = this.getAttributeMap(node.attributes);
 
     // Calculate width based on the number of children if aligned horizontally
@@ -49,8 +52,16 @@ export default class ASTToHTMLTransformer {
       columnCount === 0 ? "100%" : `${(100 / columnCount).toFixed(2)}%`;
 
     let columnsHTML = "";
+
     for (const child of node.children) {
-      columnsHTML += this.transformNode(child, columnWidth);
+      if ((child as TagNode).tagName === "column") {
+        columnsHTML += this.transformColumnElementNode(
+          child as TagNode,
+          columnWidth
+        );
+      } else {
+        columnsHTML += this.transformNode(child);
+      }
     }
 
     return minifyHTML(
@@ -64,6 +75,7 @@ export default class ASTToHTMLTransformer {
     const { alignV = "top", alignH = "left" } = this.getAttributeMap(
       node.attributes
     );
+
     const verticalAlignment = {
       top: "top",
       center: "middle",
@@ -87,7 +99,7 @@ export default class ASTToHTMLTransformer {
     );
   }
 
-  private transformBodyNode(node: TagNode, _width?: string): string {
+  private transformBodyNode(node: TagNode): string {
     let content = "";
     for (const child of node.children) {
       content += this.transformNode(child);
@@ -95,7 +107,7 @@ export default class ASTToHTMLTransformer {
     return minifyHTML(`<!DOCTYPE html><html><body>${content}</body></html>`);
   }
 
-  private transformContainerNode(node: TagNode, _width?: string): string {
+  private transformContainerNode(node: TagNode): string {
     const {
       alignH = "left",
       alignV = "top",
@@ -103,7 +115,6 @@ export default class ASTToHTMLTransformer {
       background = "#FFF",
     } = this.getAttributeMap(node.attributes);
 
-    // Convert to a table structure for email client compatibility
     const horizontalAlignment = {
       left: "left",
       center: "center",
@@ -132,19 +143,27 @@ export default class ASTToHTMLTransformer {
       `);
   }
 
-  private transformTextElementNode(node: TagNode, _width?: string): string {
-    const {
-      color = "#000",
-      weight = "normal",
-      margin = "0px",
-      size = "16px",
-    } = this.getAttributeMap(node.attributes);
+  private transformTextElementNode(node: TagNode): string {
+    const inlineCss = CssStyleInliner(this.getAttributeMap(node.attributes));
+
     let content = "";
     for (const child of node.children) {
       content += this.transformNode(child);
     }
+    return minifyHTML(`<p style="${inlineCss}">${content}</p>`);
+  }
+
+  private transformImageElementNode(node: TagNode): string {
+    const inlineCss = CssStyleInliner(this.getAttributeMap(node.attributes));
+    const { src = "", alt = "" } = this.getAttributeMap(node.attributes);
+
+    let content = "";
+    for (const child of node.children) {
+      content += this.transformNode(child);
+    }
+
     return minifyHTML(
-      `<p style="color: ${color}; font-weight: ${weight}; margin: ${margin}; font-size: ${size}">${content}</p>`
+      `<img src="${src}" alt="${alt}" style="${inlineCss}">${content}</img>`
     );
   }
 

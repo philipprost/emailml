@@ -12,8 +12,10 @@ async function transform() {
   if (response.ok) {
     const data = await response.json();
     const transformedHtml = data.html;
-    document.getElementById("html-output").textContent = transformedHtml;
+    document.getElementById("html-output").textContent =
+      html_beautify(transformedHtml);
     document.getElementById("html-render").srcdoc = transformedHtml;
+    hljs.highlightAll();
   } else {
     console.error("Failed to transform EmailML");
   }

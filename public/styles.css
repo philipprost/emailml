@@ -10,6 +10,8 @@ html {
   height: 50%;
   float: left;
   overflow: hidden;
+  border: 1px solid #111;
+  box-sizing: border-box;
 }
 
 textarea {
@@ -25,8 +27,18 @@ textarea {
   clear: both;
 }
 
+.html-pane {
+  background-color: #23241f;
+  overflow-y: scroll;
+}
+
 iframe {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+pre,
+code {
+  white-space: pre-wrap; /* or just 'pre' depending on what you want */
 }
